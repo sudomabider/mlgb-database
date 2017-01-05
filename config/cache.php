@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'laravel',
+    'prefix' => 'coc_veoveo_me',
 
 ];

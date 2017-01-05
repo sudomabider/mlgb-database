@@ -99,7 +99,7 @@ class PullPlayerRecords extends Command
         $playerRepository = app(PlayerRepository::class);
 
         foreach ($memberList as $member) {
-            $member['league_slug'] = $member['league']['name'] ?? 'unranked';
+            $member['league_slug'] = kebabize($member['league']['name'] ?? 'unranked');
             if ($player = $playerRepository->find($member->get('tag'))) {
                 $playerRepository->update($player, $member->toArray());
             } else {
