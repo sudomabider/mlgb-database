@@ -13,8 +13,8 @@ class HomeView extends React.Component {
             <div>
               <div className="text-xs-center">
                 <h1>{clan.name}</h1>
-                <h2>Lv{clan.clanLevel} - {clan.clanPoints} Points - {clan.members} Members</h2>
-                <h2>War: {clan.warWins} wins - {clan.warLosses} losses - {clan.warTies} ties</h2>
+                <p className="lead">Lv{clan.clanLevel} - {clan.clanPoints} Points - {clan.members} Members</p>
+                <p className="lead">War: {clan.warWins} wins - {clan.warLosses} losses - {clan.warTies} ties</p>
                 <hr/>
                 <p className="text-muted">
                   [incredible data analysis here]
