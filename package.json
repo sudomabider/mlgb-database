@@ -6,7 +6,6 @@
   },
   "devDependencies": {
     "chart.js": "^2.4.0",
-    "fetch-intercept": "^2.2.1",
     "gulp": "^3.9.1",
     "laravel-elixir": "^6.0.0-14",
     "laravel-elixir-webpack-official": "^1.0.2",
@@ -22,7 +21,6 @@
     "react-refetch": "^1.0.0",
     "react-router": "^3.0.0",
     "react-textarea-autosize": "^4.0.5",
-    "reactstrap": "^3.9.4",
-    "recharts": "^0.20.2"
+    "reactstrap": "^3.9.4"
   }
 }

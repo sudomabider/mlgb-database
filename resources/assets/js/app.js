@@ -6,14 +6,6 @@ import NoMatch from './components/core/NoMatch'
 import HomeView from './components/HomeView'
 import PlayersView from './components/PlayersView'
 import PlayerView from './components/PlayerView'
-import fetchIntercept from 'fetch-intercept';
-
-const unregister = fetchIntercept.register({
-  request: function (url, config) {
-    // Modify the url or config here
-    console.log(config);
-  }
-});
 
 render((
   <Router history={browserHistory}>
