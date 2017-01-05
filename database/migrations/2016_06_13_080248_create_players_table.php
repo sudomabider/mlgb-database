@@ -18,6 +18,7 @@ class CreatePlayersTable extends Migration
             $table->primary('tag');
 
             $table->string('league');
+            $table->foreign('league')->references('slug')->on('leagues');
 
             $table->string('name');
             $table->string('role');

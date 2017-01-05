@@ -17,8 +17,10 @@ class CreatePlayerRecordsTable extends Migration
             $table->increments('id');
 
             $table->string('tag');
-            
+            $table->foreign('tag')->references('tag')->on('players');
+
             $table->string('league');
+            $table->foreign('league')->references('slug')->on('leagues');
 
             $table->unsignedSmallInteger('expLevel');
             $table->string('trophies');
