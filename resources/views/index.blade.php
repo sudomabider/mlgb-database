@@ -25,6 +25,14 @@
     </div>
 </footer>
 
+<script>
+    @if(config('app.debug'))
+    window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+      alert("Error occured: " + errorMsg);//or any message
+      return false;
+    };
+    @endif
+</script>
 <script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>
