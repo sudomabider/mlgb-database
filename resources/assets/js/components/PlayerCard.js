@@ -14,7 +14,6 @@ class PlayerCard extends React.Component {
           <CardHeader>
             <CardTitle className="mb-0" tag="h6">
               <Link to={`/players/${this.props.player.id}`}>
-                <CardImg className="img-responsive mr-1" src={this.props.player.league.icon_tiny} alt={this.props.player.league.name} />
                 {this.props.player.name}
               </Link>
             </CardTitle>
@@ -22,7 +21,8 @@ class PlayerCard extends React.Component {
           <CardBlock>
             <ul className="list-unstyled">
               <li>
-                <i className="fa fa-trophy fa-fw" /> {this.props.player.record.trophies}
+                <CardImg className="img-responsive mr-1" src={this.props.player.league.icon_tiny} alt={this.props.player.league.name} />
+                {this.props.player.record.trophies}
               </li>
             </ul>
           </CardBlock>

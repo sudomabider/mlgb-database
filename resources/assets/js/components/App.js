@@ -7,8 +7,8 @@ class App extends React.Component {
     return (
       <div>
         <Jumbotron className="text-xs-center">
-          <h1 className="display-4">MLGB Clan Database</h1>
-          <p className="lead">A Clash of Clans related demo - Built with Laravel and ReactJS</p>
+          <h1 className="display-5">A Clash of Clans Database</h1>
+          <p>Built with <span className="lead"><i>Laravel</i></span> and <span className="lead"><i>ReactJS</i></span></p>
           <NavBar />
         </Jumbotron>
 

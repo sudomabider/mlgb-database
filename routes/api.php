@@ -16,8 +16,8 @@ $router = app(\Illuminate\Routing\Router::class);
 $router->get('all', 'ApiController@all');
 //$router->get('players/first', 'ApiController@firstPlayer');
 
-//$router->get('/', 'PlayerController@index');
 
+$router->get('clan', 'ClanController@index');
 $router->get('players', ['uses' => 'PlayerController@index']);
 $router->get('players/{tag}', ['uses' => 'PlayerController@show']);
 
