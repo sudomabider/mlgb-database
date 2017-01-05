@@ -18,6 +18,7 @@ const unregister = fetchIntercept.register({
 render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={HomeView} />
       <Route path="/players" component={PlayersView} />
       <Route path="/players/:id" component={PlayerView} />
       <Route path="*" component={NoMatch} />
