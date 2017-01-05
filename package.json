@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "chart.js": "^2.4.0",
+    "fetch-intercept": "^2.2.1",
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^6.0.0-14",
+    "laravel-elixir-webpack-official": "^1.0.2",
+    "lodash": "^4.16.2",
+    "react": "^15.4.1",
+    "react-addons-css-transition-group": "^15.4.1",
+    "react-addons-linked-state-mixin": "^15.4.1",
+    "react-addons-transition-group": "^15.4.1",
+    "react-chartjs-2": "^1.6.2",
+    "react-dom": "^15.4.1",
+    "react-equalizer": "^1.0.4",
+    "react-link-state": "^0.1.2",
+    "react-refetch": "^1.0.0",
+    "react-router": "^3.0.0",
+    "react-textarea-autosize": "^4.0.5",
+    "reactstrap": "^3.9.4",
+    "recharts": "^0.20.2"
+  }
+}

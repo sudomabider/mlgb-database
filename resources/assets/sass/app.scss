@@ -1,0 +1,60 @@
+// Variables
+@import "../../../bower_components/bootswatch/sandstone/variables";
+
+$web-font-path: 'https://fonts.googleapis.com/css?family=Roboto|Ubuntu+Mono';
+$font-family-sans-serif: "Ubuntu Mono", "Helvetica Neue", Helvetica, Arial, sans-serif, "Microsoft Yahei";
+$font-family-base: "Ubuntu Mono", "Helvetica Neue", Helvetica, Arial, sans-serif, "Microsoft Yahei";
+
+// Bootstrap
+$enable-flex: true;
+$enable-shadows: false;
+$enable-transitions: true;
+@import "../../../bower_components/bootstrap/scss/bootstrap";
+
+// Bootswatch
+@import "../../../bower_components/bootswatch/sandstone/bootswatch";
+
+// Plugins
+@import "../../../bower_components/components-font-awesome/scss/font-awesome";
+@import "../../../bower_components/animate.css/animate.min";
+
+* {
+  letter-spacing: 0.1rem;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+.card {
+  @include box-shadow(0 0 10px rgba(0,0,0,0.2));
+}
+
+.ubuntu-mono {
+  font-family: "Ubuntu Mono", sans-serif, "Microsoft Yahei";
+}
+
+.navbar-nav .nav-item {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+/* React Transition */
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity .3s ease-in;
+}
