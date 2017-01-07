@@ -3,12 +3,9 @@ import { connect, PromiseState } from 'react-refetch'
 import PromiseStateContainer from './core/PromiseStateContainer'
 import { LineChart } from './Chart'
 import {Card, CardHeader, CardBlock} from 'reactstrap'
+import recordHelper from '../utils/RecordHelper'
 
 class PlayerView extends React.Component {
-
-  filterRecords(records, key) {
-    return records.map(function(record){return parseInt(record[key]);})
-  }
 
   render() {
     return (
@@ -44,8 +41,8 @@ class PlayerView extends React.Component {
                       <CardHeader>Trophies</CardHeader>
                       <CardBlock>
                         <LineChart label="Trophies" color={player.color.value}
-                                   labels={this.filterRecords(records, 'created_at')}
-                                   data={this.filterRecords(records, 'trophies')}/>
+                                   labels={recordHelper.filterRecords(records, 'time', false)}
+                                   data={recordHelper.filterRecords(records, 'trophies')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -54,8 +51,8 @@ class PlayerView extends React.Component {
                       <CardHeader>Activity (Trophies Variation)</CardHeader>
                       <CardBlock>
                         <LineChart label="Variantion" color={player.color.value}
-                                   labels={this.filterRecords(records, 'created_at')}
-                                   data={this.filterRecords(records, 'trophiesVariation')}/>
+                                   labels={recordHelper.filterRecords(records, 'time', false)}
+                                   data={recordHelper.filterRecords(records, 'trophiesVariation')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -64,8 +61,8 @@ class PlayerView extends React.Component {
                       <CardHeader>Donations</CardHeader>
                       <CardBlock>
                         <LineChart label="Donations" color={player.color.value}
-                                   labels={this.filterRecords(records, 'created_at')}
-                                   data={this.filterRecords(records, 'donations')}/>
+                                   labels={recordHelper.filterRecords(records, 'time', false)}
+                                   data={recordHelper.filterRecords(records, 'donations')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -74,8 +71,8 @@ class PlayerView extends React.Component {
                       <CardHeader>Donations Received</CardHeader>
                       <CardBlock>
                         <LineChart label="Received" color={player.color.value}
-                                   labels={this.filterRecords(records, 'created_at')}
-                                   data={this.filterRecords(records, 'donationsReceived')}/>
+                                   labels={recordHelper.filterRecords(records, 'time', false)}
+                                   data={recordHelper.filterRecords(records, 'donationsReceived')}/>
                       </CardBlock>
                     </Card>
                   </div>

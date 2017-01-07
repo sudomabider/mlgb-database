@@ -18,7 +18,14 @@ class Record extends Model
     protected $table = 'player_records';
     
     protected $fillable = ['tag', 'expLevel', 'league_slug', 'trophies', 'clanRank', 'donations', 'donationsReceived'];
-    
+
+    protected $appends = ['time'];
+
+    public function getTimeAttribute()
+    {
+        return $this->created_at->format('Y-m-d h:i');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations

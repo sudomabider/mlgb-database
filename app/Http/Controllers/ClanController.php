@@ -46,18 +46,27 @@ class ClanController extends Controller
 
     public function index()
     {
+        $timerStart = microtime(true);
+
         $data = Cache::remember('home-page-data', 10, function() {
             return $this->calculateAShitTonOfData();
         });
 
-        return response()->json($data);
+        $timerEnd = microtime(true);
+        $time = number_format($timerEnd - $timerStart, 6);
+
+        return response()->json($data + compact('time'));
     }
 
     private function calculateAShitTonOfData()
     {
         $clan = $this->clanRepository->orderBy('id', 'desc')->limit(1)->findAll()->first();
 
-        $players = $this->playerRepository->findAll();
+        $players = $this->playerRepository->with(['color'])->findAll();
+
+        $players->each(function($player) {
+            $player->records = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())->findAll();
+        });
 
         $mostActivePlayer = $this->getMostActivePlayer($players);
 
@@ -75,7 +84,7 @@ class ClanController extends Controller
         $mostActivePlayer = $players->first();
 
         foreach ($players as $player) {
-            $records = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())->findAll();
+            $records = $player->records;
 
             $activeRecords = $records->filter(function ($record, $key) use ($records) {
                 return $records->has($key - 1) AND $record->trophies !== $records->get($key - 1)->trophies;
@@ -89,8 +98,6 @@ class ClanController extends Controller
             }
         }
 
-        $records = $this->recordRepository->withinRange($mostActivePlayer->tag, 7)->findAll();
-
 //        $records->each(function ($record, $key) use ($records) {
 //            if ($records->has($key - 1)) {
 //                $record['trophiesVariation'] = (int)$record->trophies - (int)$records->get($key - 1)->trophies;
@@ -99,8 +106,6 @@ class ClanController extends Controller
 //            }
 //        });
 
-        $mostActivePlayer->records = $records;
-        $mostActivePlayer->load('color');
         return $mostActivePlayer;
     }
 
@@ -109,13 +114,11 @@ class ClanController extends Controller
         $soManyTrophies = $players->first();
 
         foreach ($players as $player) {
-            $low = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())
-                ->orderBy('trophies')->findAll()->first();
+            $low = $player->records->sortBy('trophies')->first();
 
             $min = $low ? $low->trophies : 0;
 
-            $high = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())
-                ->orderBy('trophies', 'desc')->findAll()->first();
+            $high = $player->records->sortByDesc('trophies')->first();
 
             $max = $high ? $high->trophies : 0;
 
@@ -127,9 +130,6 @@ class ClanController extends Controller
             }
         }
 
-        $soManyTrophies->records = $this->recordRepository->withinRange($soManyTrophies->tag, 7, Carbon::now())->findAll();
-        $soManyTrophies->load('color');
-
         return $soManyTrophies;
     }
 
@@ -138,7 +138,7 @@ class ClanController extends Controller
         $donor = $players->first();
 
         foreach ($players as $player) {
-            $records = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())->findAll();
+            $records = $player->records;
             $diff = $this->calculateTrueDiff($records, 'donations');
             if ($diff > ($donor->diff ? : 0)) {
                 $donor = $player;
@@ -146,8 +146,7 @@ class ClanController extends Controller
             }
         }
 
-        $donor->records = $this->recordRepository->withinRange($donor->tag, 7, Carbon::now())->findAll();
-        return $donor->load('color');
+        return $donor;
     }
 
     private function getDonee(Collection $players)
@@ -155,7 +154,7 @@ class ClanController extends Controller
         $donor = $players->first();
 
         foreach ($players as $player) {
-            $records = $this->recordRepository->withinRange($player->tag, 7, Carbon::now())->findAll();
+            $records = $player->records;
             $diff = $this->calculateTrueDiff($records, 'donationsReceived');
             if ($diff > ($donor->diff ? : 0)) {
                 $donor = $player;
@@ -163,8 +162,7 @@ class ClanController extends Controller
             }
         }
 
-        $donor->records = $this->recordRepository->withinRange($donor->tag, 7, Carbon::now())->findAll();
-        return $donor->load('color');
+        return $donor;
     }
 
     private function calculateTrueDiff(Collection $records, $key)

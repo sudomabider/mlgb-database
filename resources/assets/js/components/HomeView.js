@@ -5,11 +5,9 @@ import PromiseStateContainer from "./core/PromiseStateContainer"
 import {Card, CardHeader, CardBlock} from "reactstrap"
 import {LineChart} from "./Chart"
 import Loading from './core/Loading'
+import recordHelper from '../utils/RecordHelper'
 
 class HomeView extends React.Component {
-  filterRecords(records, key) {
-    return records.map(function(record){return parseInt(record[key]);})
-  }
 
   render() {
     return (
@@ -29,7 +27,10 @@ class HomeView extends React.Component {
                 <p>Lv{clan.clanLevel} - {clan.clanPoints} Points - {clan.members} Members</p>
                 <p>War: {clan.warWins} wins - {clan.warLosses} losses - {clan.warTies} ties</p>
                 <hr/>
-                <h4 className="text-xs-center text-uppercase mb-1 p-1 bg-faded">Players of the week</h4>
+                <div className="text-xs-center mb-1 p-1 bg-faded">
+                  <h4 className="text-uppercase">Players of the week</h4>
+                  <i className="text-muted">Generated in {data.time} seconds {data.time < 1 ? '(Cached)' : ''}.</i>
+                </div>
                 <div className="row">
                   <div className="col-md-6">
                     <Card>
@@ -38,8 +39,8 @@ class HomeView extends React.Component {
                       </CardHeader>
                       <CardBlock>
                         <LineChart label="Trophies" color={mostActivePlayer.color.value}
-                                   labels={this.filterRecords(mostActivePlayer.records, 'created_at')}
-                                   data={this.filterRecords(mostActivePlayer.records, 'trophies')}/>
+                                   labels={recordHelper.filterRecords(mostActivePlayer.records, 'time', false)}
+                                   data={recordHelper.filterRecords(mostActivePlayer.records, 'trophies')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -51,8 +52,8 @@ class HomeView extends React.Component {
                       </CardHeader>
                       <CardBlock>
                         <LineChart label="Trophies" color={soManyTrophies.color.value}
-                                   labels={this.filterRecords(soManyTrophies.records, 'created_at')}
-                                   data={this.filterRecords(soManyTrophies.records, 'trophies')}/>
+                                   labels={recordHelper.filterRecords(soManyTrophies.records, 'time', false)}
+                                   data={recordHelper.filterRecords(soManyTrophies.records, 'trophies')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -64,8 +65,8 @@ class HomeView extends React.Component {
                       </CardHeader>
                       <CardBlock>
                         <LineChart label="Donations" color={donor.color.value}
-                                   labels={this.filterRecords(donor.records, 'created_at')}
-                                   data={this.filterRecords(donor.records, 'donations')}/>
+                                   labels={recordHelper.filterRecords(donor.records, 'time', false)}
+                                   data={recordHelper.filterRecords(donor.records, 'donations')}/>
                       </CardBlock>
                     </Card>
                   </div>
@@ -77,8 +78,8 @@ class HomeView extends React.Component {
                       </CardHeader>
                       <CardBlock>
                         <LineChart label="Donation Received" color={donee.color.value}
-                                   labels={this.filterRecords(donee.records, 'created_at')}
-                                   data={this.filterRecords(donee.records, 'donationsReceived')}/>
+                                   labels={recordHelper.filterRecords(donee.records, 'time', false)}
+                                   data={recordHelper.filterRecords(donee.records, 'donationsReceived')}/>
                       </CardBlock>
                     </Card>
                   </div>
