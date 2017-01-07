@@ -29,7 +29,7 @@ class HomeView extends React.Component {
                 <hr/>
                 <div className="text-xs-center mb-1 p-1 bg-faded">
                   <h4 className="text-uppercase">Players of the week</h4>
-                  <i className="text-muted">Generated in {data.time} seconds{data.time < 1 ? ' (Cached)' : ''}.</i>
+                  <i className="text-muted">Generated in {data.time} seconds{data.cached ? ' (Cached)' : ''}.</i>
                 </div>
                 <div className="row">
                   <div className="col-md-6">

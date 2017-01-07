@@ -48,14 +48,20 @@ class ClanController extends Controller
     {
         $timerStart = microtime(true);
 
-        $data = Cache::remember('home-page-data', 10, function() {
-            return $this->calculateAShitTonOfData();
-        });
+        $cached = false;
+
+        if (Cache::has('home-page-data')) {
+            $data = Cache::get('home-page-data');
+            $cached = true;
+        } else {
+            $data = $this->calculateAShitTonOfData();
+            Cache::put('home-page-data', $data, 10);
+        }
 
         $timerEnd = microtime(true);
         $time = number_format($timerEnd - $timerStart, 6);
 
-        return response()->json($data + compact('time'));
+        return response()->json($data + compact('time', 'cached'));
     }
 
     private function calculateAShitTonOfData()
