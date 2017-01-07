@@ -172,9 +172,15 @@ class ClanController extends Controller
         $max = $records->max($key);
         $min = $records->min($key);
 
-        // if $min is zero it means a new season has just started
-        if ($min === 0) {
-            $diff = $max - $records->first()->$key + $records->last()->$key;
+        $first = $records->first();
+        $first = $first ? $first->$key : 0;
+
+        $last = $records->last();
+        $last = $last ? $last->$key : 0;
+
+        // if values go down it means a new season has started
+        if ($min < $first) {
+            $diff = $max - $first + $last;
         } else {
             $diff = $max - $min;
         }
